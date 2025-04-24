@@ -1,0 +1,8 @@
+/.vs/
+/cmake-build-debug-coverage/
+/cmake-build-debug/
+/profiler_reports/
+/out/
+/venv/
+/project_combined.txt
+/script.py

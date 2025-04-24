@@ -4,10 +4,6 @@
 
 
 int main() {
-    // const String inFileName = R"(C:\Users\EDWIN\CLionProjects\fano\data\input.txt)";
-    // const String outFileName = R"(C:\Users\EDWIN\CLionProjects\fano\data\output.bin)";
-    // const String decFileName = R"(C:\Users\EDWIN\CLionProjects\fano\data\decoded.txt)";
-
     String toEncodeFileName;
     String encodedFileName;
     String decodedFileName;
