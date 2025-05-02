@@ -30,6 +30,8 @@ public:
 
     void decode(const Encoded &encodedTable, uint8_t bitsPerCode);
 
+    double calculateEntropy() const;
+
     const Encoded &getCodeForByte(uint8_t byte) const;
 
     bool getByteByCode(const Encoded &code, uint8_t &outByte) const;

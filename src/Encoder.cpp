@@ -29,7 +29,7 @@ void Encoder::encode(const String &inputFilePath, const String &outputFilePath) 
 
         file_io::writeToFile(outputFilePath, packed);
 
-        getStatistics(inputFilePath, outputFilePath);
+        getStatistics(inputFilePath, outputFilePath, table);
     } catch (std::exception &ex) {
         std::cerr << ex.what() << "\n";
     }
@@ -48,7 +48,7 @@ Packed Encoder::packEncodedTableAndData(const Encoded &encodedTable, const Encod
     return packed;
 }
 
-void Encoder::getStatistics(const String &inputFilePath, const String &outputFilePath) {
+void Encoder::getStatistics(const String &inputFilePath, const String &outputFilePath, const Table &table) {
     const size_t inputSize = file_io::getFileSize(inputFilePath);
     const size_t outputSize = file_io::getFileSize(outputFilePath);
     std::cout << "[Encoder] Input size: " << inputSize << " bytes\n";
@@ -56,4 +56,8 @@ void Encoder::getStatistics(const String &inputFilePath, const String &outputFil
 
     const double compressionRatio = (1 - static_cast<double>(outputSize) / static_cast<double>(inputSize)) * 100;
     std::cout << "[Encoder] Compression ratio: " << std::fixed << std::setprecision(2) << compressionRatio << "%\n";
+
+    const double entropy = table.calculateEntropy();
+    std::cout << "[Encoder] Entropy: " << entropy << "\n";
+
 }

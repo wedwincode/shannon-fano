@@ -30,7 +30,7 @@ public:
 private:
     static Packed packEncodedTableAndData(const Encoded &encodedTable, const Encoded &encodedData);
 
-    static void getStatistics(const String &inputFilePath, const String &outputFilePath);
+    static void getStatistics(const String &inputFilePath, const String &outputFilePath, const Table &table);
 };
 
 

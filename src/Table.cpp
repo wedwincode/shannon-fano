@@ -1,5 +1,7 @@
 #include "../include/Table.h"
 
+#include <cmath>
+
 
 Table::Table(const Buffer &buffer) {
     if (buffer.empty())
@@ -57,6 +59,19 @@ void Table::decode(const Encoded &encodedTable, const uint8_t bitsPerCode) {
     }
 
     buildReverseTable();
+}
+
+double Table::calculateEntropy() const {
+    int totalQuantity = 0;
+    double entropy = 0.0f;
+    for (const Pair<const uint8_t&, const ByteEntry&> &pair: table) {
+        totalQuantity += pair.second.occurrences;
+    }
+    for (const Pair<const uint8_t&, const ByteEntry&> &pair: table) {
+        const double freq = static_cast<double>(pair.second.occurrences) / totalQuantity;
+        entropy += freq * std::log2(freq);
+    }
+    return -1 * entropy;
 }
 
 const Encoded &Table::getCodeForByte(const uint8_t byte) const {
