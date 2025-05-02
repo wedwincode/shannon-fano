@@ -13,7 +13,7 @@
 
 class Encoder {
 public:
-    Encoder(const String &inputFilePath, const String &outputFilePath);
+    Encoder();
 
     Encoder(const Encoder &);
 
@@ -25,15 +25,12 @@ public:
 
     ~Encoder();
 
-    void encode() const;
+    static void encode(const String &inputFilePath, const String &outputFilePath);
 
 private:
     static Packed packEncodedTableAndData(const Encoded &encodedTable, const Encoded &encodedData);
 
-    void getStatistics() const;
-
-    String inputFilePath_;
-    String outputFilePath_;
+    static void getStatistics(const String &inputFilePath, const String &outputFilePath);
 };
 
 

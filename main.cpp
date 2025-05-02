@@ -18,16 +18,14 @@ int main() {
         std::cout << "Enter the path to the encoded file:";
         std::cin >> encodedFileName;
 
-        const Encoder encoder(toEncodeFileName, encodedFileName);
-        encoder.encode();
+        Encoder::encode(toEncodeFileName, encodedFileName);
     } else if (mode == 1) {
         std::cout << "Enter the path to the encoded file:";
         std::cin >> encodedFileName;
         std::cout << "Enter the path to the result file:";
         std::cin >> decodedFileName;
 
-        const Decoder decoder(encodedFileName, decodedFileName);
-        decoder.decode();
+        Decoder::decode(encodedFileName, decodedFileName);
     } else if (mode == 2) {
         std::cout << "Enter the path to file you want to encode:";
         std::cin >> toEncodeFileName;
@@ -36,10 +34,8 @@ int main() {
         std::cout << "Enter the path to the result file:";
         std::cin >> decodedFileName;
 
-        const Encoder encoder(toEncodeFileName, encodedFileName);
-        encoder.encode();
-        const Decoder decoder(encodedFileName, decodedFileName);
-        decoder.decode();
+        Encoder::encode(toEncodeFileName, encodedFileName);
+        Decoder::decode(encodedFileName, decodedFileName);
     } else {
         std::cout << "Selected mode is not available";
     }

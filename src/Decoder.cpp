@@ -1,9 +1,6 @@
 #include "../include/Decoder.h"
 
-Decoder::Decoder(const String &inputFilePath, const String &outputFilePath): inputFilePath_(inputFilePath),
-                                                                             outputFilePath_(outputFilePath) {
-    file_io::checkFiles(inputFilePath, outputFilePath);
-}
+Decoder::Decoder() = default;
 
 Decoder::Decoder(const Decoder &) = default;
 
@@ -15,7 +12,7 @@ Decoder &Decoder::operator=(Decoder &&) noexcept = default;
 
 Decoder::~Decoder() = default;
 
-void Decoder::decode() const {
+void Decoder::decode(const String &inputFilePath, const String &outputFilePath) {
     /*
         ===== BINARY FILE DATA STORAGE SCHEME =====
 
@@ -52,7 +49,8 @@ void Decoder::decode() const {
 
     try {
         ScopedTimer scopedTimer("Decoder");
-        const Buffer rawBuffer = file_io::readFileToBuffer(inputFilePath_);
+        file_io::checkFiles(inputFilePath, outputFilePath);
+        const Buffer rawBuffer = file_io::readFileToBuffer(inputFilePath);
 
         if (rawBuffer.size() < 3)
             throw DecoderException("Incorrect header format");
@@ -80,7 +78,7 @@ void Decoder::decode() const {
         Data data;
         data.decode(table, encodedData);
 
-        file_io::writeToFile(outputFilePath_, data.getData());
+        file_io::writeToFile(outputFilePath, data.getData());
     } catch (std::exception &ex) {
         std::cerr << ex.what() << "\n";
     }

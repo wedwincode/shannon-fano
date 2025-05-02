@@ -1,9 +1,8 @@
 #include "../include/Encoder.h"
 
-Encoder::Encoder(const String &inputFilePath, const String &outputFilePath): inputFilePath_(inputFilePath),
-                                                                             outputFilePath_(outputFilePath) {
-    file_io::checkFiles(inputFilePath, outputFilePath);
-}
+#include <iomanip>
+
+Encoder::Encoder() = default;
 
 Encoder::Encoder(const Encoder &) = default;
 
@@ -15,21 +14,22 @@ Encoder &Encoder::operator=(Encoder &&) noexcept = default;
 
 Encoder::~Encoder() = default;
 
-void Encoder::encode() const {
+void Encoder::encode(const String &inputFilePath, const String &outputFilePath) {
     try {
         ScopedTimer scopedTimer("Encoder");
-        const Buffer buffer = file_io::readFileToBuffer(inputFilePath_);
-        Data data(buffer);
+        file_io::checkFiles(inputFilePath, outputFilePath);
+        const Buffer buffer = file_io::readFileToBuffer(inputFilePath);
         Table table(buffer);
+        Data data(buffer);
 
         const Encoded encodedTable = table.encode();
         const Encoded encodedData = data.encode(table);
 
         const Packed packed = packEncodedTableAndData(encodedTable, encodedData);
 
-        file_io::writeToFile(outputFilePath_, packed);
+        file_io::writeToFile(outputFilePath, packed);
 
-        getStatistics();
+        getStatistics(inputFilePath, outputFilePath);
     } catch (std::exception &ex) {
         std::cerr << ex.what() << "\n";
     }
@@ -48,12 +48,12 @@ Packed Encoder::packEncodedTableAndData(const Encoded &encodedTable, const Encod
     return packed;
 }
 
-void Encoder::getStatistics() const {
-    const size_t inputSize = file_io::getFileSize(inputFilePath_);
-    const size_t outputSize = file_io::getFileSize(outputFilePath_);
+void Encoder::getStatistics(const String &inputFilePath, const String &outputFilePath) {
+    const size_t inputSize = file_io::getFileSize(inputFilePath);
+    const size_t outputSize = file_io::getFileSize(outputFilePath);
     std::cout << "[Encoder] Input size: " << inputSize << " bytes\n";
     std::cout << "[Encoder] Encoded size: " << outputSize << " bytes\n";
 
-    const double compressionRatio = static_cast<double>(outputSize) / inputSize;
-    std::cout << "[Encoder] Compression ratio: " << compressionRatio << "\n";
+    const double compressionRatio = (1 - static_cast<double>(outputSize) / static_cast<double>(inputSize)) * 100;
+    std::cout << "[Encoder] Compression ratio: " << std::fixed << std::setprecision(2) << compressionRatio << "%\n";
 }

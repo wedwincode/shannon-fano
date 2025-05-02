@@ -15,7 +15,7 @@
 
 class Decoder {
 public:
-    Decoder(const String &inputFilePath, const String &outputFilePath);
+    Decoder();
 
     Decoder(const Decoder &);
 
@@ -27,14 +27,10 @@ public:
 
     ~Decoder();
 
-
-    void decode() const;
+    static void decode(const String &inputFilePath, const String &outputFilePath) ;
 
 private:
     static size_t getTableBitSize(uint8_t numberOfEntries, uint8_t bitsPerCode);
-
-    String inputFilePath_;
-    String outputFilePath_;
 };
 
 
