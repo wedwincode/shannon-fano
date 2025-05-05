@@ -10,51 +10,54 @@
 #include "types.h"
 #include "FanoExceptions.h"
 
-class Table {
+class Table
+{
 public:
-    explicit Table(const Buffer &buffer);
+  explicit Table(const Buffer& buffer);
 
-    Table();
+  Table();
 
-    Table(const Table &);
+  Table(const Table&);
 
-    Table(Table &&) noexcept;
+  Table(Table&&) noexcept;
 
-    Table &operator=(const Table &);
+  Table& operator=(const Table&);
 
-    Table &operator=(Table &&) noexcept;
+  Table& operator=(Table&&) noexcept;
 
-    ~Table();
+  ~Table();
 
-    Encoded encode();
+  Encoded encode();
 
-    void decode(const Encoded &encodedTable, uint8_t bitsPerCode);
+  void decode(const Encoded& encodedTable, uint8_t bitsPerCode);
 
-    double calculateEntropy() const;
+  double calculateEntropy() const;
 
-    const Encoded &getCodeForByte(uint8_t byte) const;
+  const Encoded& getCodeForByte(uint8_t byte) const;
 
-    bool getByteByCode(const Encoded &code, uint8_t &outByte) const;
+  bool getByteByCode(const Encoded& code, uint8_t& outByte) const;
 
-    const UnorderedMap<uint8_t, ByteEntry> &getRawTable() const;
+  const UnorderedMap<uint8_t, ByteEntry>& getRawTable() const;
 
 private:
-    void countByteFrequencies(const Buffer &buffer);
+  void countByteFrequencies(const Buffer& buffer);
 
-    Vector<ByteEntry> toVector() const;
+  Vector<ByteEntry> toVector() const;
 
-    static void sortTableVectorByFrequency(Vector<ByteEntry> &tableVector);
+  static void sortTableVectorByFrequency(Vector<ByteEntry>& tableVector);
 
-    static void buildFanoCodes(Vector<ByteEntry> &tableVector, size_t start, size_t end);
+  static void buildFanoCodes(Vector<ByteEntry>& tableVector, size_t start,
+                             size_t end);
 
-    void fromVector(Vector<ByteEntry> &tableVector);
+  void fromVector(Vector<ByteEntry>& tableVector);
 
-    size_t findMaxCodeLength();
+  size_t findMaxCodeLength();
 
-    void buildReverseTable();
+  void buildReverseTable();
 
-    UnorderedMap<uint8_t, ByteEntry> table;
-    UnorderedMap<Vector<bool>, uint8_t, BoolVectorHasher<Vector<bool> > > reverseTable;
+  UnorderedMap<uint8_t, ByteEntry> table_;
+  UnorderedMap<Vector<bool>, uint8_t, BoolVectorHasher<Vector<bool>>>
+  reverseTable_;
 };
 
 

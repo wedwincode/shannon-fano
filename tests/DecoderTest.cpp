@@ -18,11 +18,9 @@ namespace DecoderTests {
 
         file_io::writeToFile(inputFile, input);
 
-        Encoder encoder(inputFile, inputFile + ".encoded.tmp");
-        encoder.encode();
+        Encoder::encode(inputFile, inputFile + ".encoded.tmp");
 
-        Decoder decoder(inputFile + ".encoded.tmp", outputFile);
-        decoder.decode();
+        Decoder::decode(inputFile + ".encoded.tmp", outputFile);
 
         Buffer decoded = file_io::readFileToBuffer(outputFile);
         assert(decoded.size() == input.size());

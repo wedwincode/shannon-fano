@@ -1,10 +1,22 @@
 #include "../include/ScopedTimer.h"
 
-ScopedTimer::ScopedTimer(const std::string &label): label(label), start(std::chrono::high_resolution_clock::now()) {
+using namespace std::chrono;
+
+ScopedTimer::ScopedTimer(const std::string& label) :
+  label_(label), start_(high_resolution_clock::now())
+{
 }
 
-ScopedTimer::~ScopedTimer() {
-    const auto end = std::chrono::high_resolution_clock::now();
-    const auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-    std::cout << "[" << label << "] Time: " << duration << " ms\n";
+void ScopedTimer::suppress()
+{
+  isSuppressed = true;
+}
+
+ScopedTimer::~ScopedTimer()
+{
+  const auto end = high_resolution_clock::now();
+  const auto duration = duration_cast<milliseconds>
+    (end - start_).count();
+  if (!isSuppressed)
+    std::cout << "[" << label_ << "] Time: " << duration << " ms\n";
 }

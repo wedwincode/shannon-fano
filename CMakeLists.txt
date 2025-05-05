@@ -22,6 +22,7 @@ add_executable(fano main.cpp
         include/file_io.h
         include/UnorderedMap.h
         include/Pair.h
+        src/String.cpp
         include/String.h
         include/types.h
         src/ScopedTimer.cpp
@@ -39,6 +40,7 @@ add_executable(tests
         src/Data.cpp
         src/Encoder.cpp
         src/Decoder.cpp
+        src/String.cpp
         src/file_io.cpp
         src/ScopedTimer.cpp
         tests/UnorderedMapTest.cpp

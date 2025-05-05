@@ -6,30 +6,31 @@
 #include "Vector.h"
 
 
-class Data {
+class Data
+{
 public:
-    explicit Data(const Buffer &buffer);
+  explicit Data(const Buffer& buffer);
 
-    Data();
+  Data();
 
-    Data(const Data &);
+  Data(const Data&);
 
-    Data(Data &&) noexcept;
+  Data(Data&&) noexcept;
 
-    Data &operator=(const Data &);
+  Data& operator=(const Data&);
 
-    Data &operator=(Data &&) noexcept;
+  Data& operator=(Data&&) noexcept;
 
-    ~Data();
+  ~Data();
 
-    Encoded encode(const Table &table);
+  Encoded encode(const Table& table);
 
-    void decode(const Table &table, const Encoded &encodedData);
+  void decode(const Table& table, const Encoded& encodedData);
 
-    const Vector<uint8_t> &getData() const;
+  const Vector<uint8_t>& getData() const;
 
 private:
-    Vector<uint8_t> data;
+  Vector<uint8_t> data_;
 };
 
 

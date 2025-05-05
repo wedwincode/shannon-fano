@@ -11,26 +11,30 @@
 #include "Vector.h"
 #include "ScopedTimer.h"
 
-class Encoder {
+class Encoder
+{
 public:
-    Encoder();
+  Encoder();
 
-    Encoder(const Encoder &);
+  Encoder(const Encoder&);
 
-    Encoder(Encoder &&) noexcept;
+  Encoder(Encoder&&) noexcept;
 
-    Encoder &operator=(const Encoder &);
+  Encoder& operator=(const Encoder&);
 
-    Encoder &operator=(Encoder &&) noexcept;
+  Encoder& operator=(Encoder&&) noexcept;
 
-    ~Encoder();
+  ~Encoder();
 
-    static void encode(const String &inputFilePath, const String &outputFilePath);
+  static void encode(const String& inputFilePath,
+                     const String& outputFilePath);
 
 private:
-    static Packed packEncodedTableAndData(const Encoded &encodedTable, const Encoded &encodedData);
+  static Packed packEncodedTableAndData(const Encoded& encodedTable,
+                                        const Encoded& encodedData);
 
-    static void getStatistics(const String &inputFilePath, const String &outputFilePath, const Table &table);
+  static void getStatistics(const String& inputFilePath,
+                            const String& outputFilePath, const Table& table);
 };
 
 

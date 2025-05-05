@@ -5,17 +5,20 @@
 #include <string>
 
 
-class ScopedTimer {
+class ScopedTimer
+{
 public:
-    ScopedTimer(const std::string &label);
+  ScopedTimer(const std::string& label);
 
-    ~ScopedTimer();
+  void suppress();
+
+  ~ScopedTimer();
 
 private:
-    std::string label;
-    std::chrono::high_resolution_clock::time_point start;
+  std::string label_;
+  std::chrono::high_resolution_clock::time_point start_;
+  bool isSuppressed = false;
 };
-
 
 
 #endif //SCOPEDTIMER_H

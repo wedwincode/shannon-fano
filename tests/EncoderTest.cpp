@@ -18,8 +18,7 @@ namespace EncoderTests {
         input.pushBack('o');
         file_io::writeToFile(inputFile, input);
 
-        Encoder encoder(inputFile, outputFile);
-        encoder.encode();
+        Encoder::encode(inputFile, outputFile);
 
         size_t outputSize = file_io::getFileSize(outputFile);
         assert(outputSize > 0);

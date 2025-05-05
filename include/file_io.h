@@ -9,14 +9,15 @@
 #include "FanoExceptions.h"
 
 
-namespace file_io {
-    void checkFiles(const String &inputFilePath, const String &outputFilePath);
+namespace file_io
+{
+  void checkFiles(const String& inputFilePath, const String& outputFilePath);
 
-    Buffer readFileToBuffer(const String &inputFile);
+  Buffer readFileToBuffer(const String& inputFile);
 
-    void writeToFile(const String &outputFile, const Packed &packed);
+  void writeToFile(const String& outputFile, const Packed& packed);
 
-    size_t getFileSize(const String &filePath);
+  size_t getFileSize(const String& filePath);
 }
 
 

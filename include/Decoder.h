@@ -13,24 +13,26 @@
 #include "ScopedTimer.h"
 #include "FanoExceptions.h"
 
-class Decoder {
+class Decoder
+{
 public:
-    Decoder();
+  Decoder();
 
-    Decoder(const Decoder &);
+  Decoder(const Decoder&);
 
-    Decoder(Decoder &&) noexcept;
+  Decoder(Decoder&&) noexcept;
 
-    Decoder &operator=(const Decoder &);
+  Decoder& operator=(const Decoder&);
 
-    Decoder &operator=(Decoder &&) noexcept;
+  Decoder& operator=(Decoder&&) noexcept;
 
-    ~Decoder();
+  ~Decoder();
 
-    static void decode(const String &inputFilePath, const String &outputFilePath) ;
+  static void decode(const String& inputFilePath,
+                     const String& outputFilePath);
 
 private:
-    static size_t getTableBitSize(uint8_t numberOfEntries, uint8_t bitsPerCode);
+  static size_t getTableBitSize(uint8_t numberOfEntries, uint8_t bitsPerCode);
 };
 
 
